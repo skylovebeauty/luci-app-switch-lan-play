@@ -1,5 +1,0 @@
-config server
-        option ifname ''
-        option enable ''
-        option relay_server_ip ''
-        option relay_server_port ''
