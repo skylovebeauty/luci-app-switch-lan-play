@@ -134,7 +134,7 @@ function start.write(self, section, value)
 --	sys.call("pgrep lan-play | xargs -r kill -9 > /dev/null")
 
 
---	sys.call("lan-play --relay-server-addr %s --üetif wlan0 & >/dev/null" %{ inits[section].s_address })
+--	sys.call("lan-play --relay-server-addr %s --é»£tif wlan0 & >/dev/null" %{ inits[section].s_address })
 	
 	sys.call("uci set switchlanplay.@run_server[0].enable=1 > /dev/null")
 	sys.call("uci delete switchlanplay.@run_server[0].manually > /dev/null")
