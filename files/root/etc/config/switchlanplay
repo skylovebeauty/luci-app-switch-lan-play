@@ -1,0 +1,7 @@
+
+config run_server
+	option ifname 'br-lan'
+	option relay_server_port '11451'
+	option relay_server_ip '119.51.174.208'
+	option sever_list '119.51.174.208:11451'
+

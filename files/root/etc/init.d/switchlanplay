@@ -1,0 +1,79 @@
+#!/bin/sh /etc/rc.common
+START=50
+STOP=90
+SERVICE=switchlanplay
+
+USE_PROCD=1
+
+
+run_switch_lan_play()
+{
+
+    local enable                    
+    config_get_bool enable $1 enable
+    if [ $enable ]; then
+
+	local ifname                                                                         
+	config_get ifname $1 ifname 
+	local sever_list                                                         
+	config_get sever_list $1 sever_list 
+                                                       
+	local  manually                                                                      
+	config_get_bool manually $1 manually                                                 
+        if [ $manually ]; then                                                                                                                                                
+		
+		local relay_server_ip                                                              
+		local relay_server_port                                                            
+		config_get relay_server_ip $1 relay_server_ip                                      
+		config_get relay_server_port $1 relay_server_port                                  
+		config_set sever_list= $relay_server_ip:$relay_server_port                         
+		uci set switchlanplay.@run_server[0].sever_list=$relay_server_ip:$relay_server_port
+		uci commit switchlanplay
+		sever_list=$relay_server_ip:$relay_server_port                                                           
+	fi
+	PROG="lan-play --relay-server-addr $sever_list --netif $ifname"
+    else
+	PROG="lan-play --version"
+    fi
+}
+
+
+start_service()
+
+{
+
+    config_load switchlanplay
+    config_foreach run_switch_lan_play run_server
+
+
+    procd_open_instance
+    procd_set_param command $PROG
+
+    #procd_set_param respawn
+
+    procd_close_instance
+
+    echo $PROG
+    echo "Switch Lan Play Client has started."
+
+}
+
+stop_service()
+{
+    pgrep lan-play | xargs -r kill -9
+#    kill -9 `pidof lan-play`
+    echo "Switch Lan Play Client has stopped."
+}
+
+
+reload_service()
+{
+    stop
+    start
+}
+
+service_triggers()
+{
+    procd_add_reload_trigger "/etc/config/switchlanplay" "switchlanplay"
+}
+
