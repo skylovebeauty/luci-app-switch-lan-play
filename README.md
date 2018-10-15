@@ -24,8 +24,8 @@
 
 ##在 SDK 目录下 
 
-#下载本项目
 ```
+#下载本项目
 git clone  https://github.com/skylovebeauty/luci-app-switch-lan-play.git   ./package/luci-app-switch-lan-play
 
  #确保菜单里选中了本插件
