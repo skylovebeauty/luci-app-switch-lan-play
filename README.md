@@ -4,6 +4,7 @@
 
 此工具用于Openwrt 下 [Switch-lan-play](https://github.com/spacemeowx2/switch-lan-play) 工具的 Luci 界面
 
+![snapshot](./snapshot/1.jpg)
 
 
 **更新日志:**
